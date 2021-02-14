@@ -2,7 +2,7 @@
 package main;
 
 import com.db.sql.dependencies.Initialize;
-import gui.Login;
+import main.Login;
 import static java.awt.EventQueue.invokeLater;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;

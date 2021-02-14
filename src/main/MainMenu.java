@@ -1,11 +1,11 @@
 
-package gui;
+package main;
 
-import gui.sections.ShowSections;
-import gui.coursesFrames.AddNewCourse;
-import gui.coursesFrames.EditCourses;
-import gui.studentsFrames.AddNewStudent;
-import gui.studentsFrames.EditStudents;
+import main.sections.ShowSections;
+import main.coursesFrames.AddNewCourse;
+import main.coursesFrames.EditCourses;
+import main.studentsFrames.AddNewStudent;
+import main.studentsFrames.EditStudents;
 import util.gui.GUI_Util;
 import static util.gui.GUI_Util.exitConfirm;
 

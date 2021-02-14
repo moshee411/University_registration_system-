@@ -1,33 +1,33 @@
 
-package gui.coursesFrames;
+package main.studentsFrames;
 
-import core.course.Course;
-import static core.course.CoursesUtil.displayCourseInformation;
 import static core.department.DepartmentsUtil.displayDepartmentNames;
-import gui.DefaultFrame;
+import core.student.Student;
+import main.DefaultFrame;
 import java.sql.SQLException;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.TableModel;
-import util.db.DbUtil;
 import util.gui.GUI_Util;
 import static util.gui.GUI_Util.buildTableModel;
+import static core.student.StudentsUtil.getAllStudents;
+import javax.swing.DefaultComboBoxModel;
+import util.db.DbUtil;
 import static util.gui.GUI_Util.linkFrameToButton;
 import static util.gui.GUI_Util.promoteComboBox;
 
 /**
  *
- * @author moshe
+ * @author User
  */
-public class EditCourses extends DefaultFrame {
+public class EditStudents extends DefaultFrame {
 
-    Course selectedCourse;
+    Student selectedStudent;
 
     /**
      * Creates new form EditStudents
      */
-    public EditCourses() {
+    public EditStudents() {
         initComponents();
         updateTable();
     }
@@ -39,20 +39,20 @@ public class EditCourses extends DefaultFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        courseIdLbl = new javax.swing.JLabel();
-        courseTitleLbl = new javax.swing.JLabel();
-        courseDepartmentLbl = new javax.swing.JLabel();
-        courseCreditsLbl = new javax.swing.JLabel();
-        courseDepartmentTf = new javax.swing.JTextField();
-        courseTitleTf = new javax.swing.JTextField();
-        courseIdTf = new javax.swing.JTextField();
-        courseCreditsTf = new javax.swing.JTextField();
+        studentIdLbl = new javax.swing.JLabel();
+        studentNameLbl = new javax.swing.JLabel();
+        studentDepartmentLbl = new javax.swing.JLabel();
+        studentTotalCreditLbl = new javax.swing.JLabel();
+        studentDepartmentTf = new javax.swing.JTextField();
+        studentNameTf = new javax.swing.JTextField();
+        studentIdTf = new javax.swing.JTextField();
+        studentCreditTf = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        deleteCourseBtn = new javax.swing.JButton();
+        deleteStudentBtn = new javax.swing.JButton();
         editNameBtn = new javax.swing.JButton();
         editDepartmentBtn = new javax.swing.JButton();
-        editCreditsBtn = new javax.swing.JButton();
-        editCourseTakes = new javax.swing.JButton();
+        editTotalCreditBtn = new javax.swing.JButton();
+        editStudentCoursesBtn = new javax.swing.JButton();
 
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -61,21 +61,21 @@ public class EditCourses extends DefaultFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        courseIdLbl.setText("Id :");
+        studentIdLbl.setText("Id :");
 
-        courseTitleLbl.setText("Title :");
+        studentNameLbl.setText("Name :");
 
-        courseDepartmentLbl.setText("Department :");
+        studentDepartmentLbl.setText("Department :");
 
-        courseCreditsLbl.setText("Credits :");
+        studentTotalCreditLbl.setText("Total Credit :");
 
-        courseDepartmentTf.setEditable(false);
+        studentDepartmentTf.setEditable(false);
 
-        courseTitleTf.setEditable(false);
+        studentNameTf.setEditable(false);
 
-        courseIdTf.setEditable(false);
+        studentIdTf.setEditable(false);
 
-        courseCreditsTf.setEditable(false);
+        studentCreditTf.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,16 +84,16 @@ public class EditCourses extends DefaultFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(courseDepartmentLbl)
-                    .addComponent(courseTitleLbl)
-                    .addComponent(courseIdLbl)
-                    .addComponent(courseCreditsLbl))
+                    .addComponent(studentDepartmentLbl)
+                    .addComponent(studentNameLbl)
+                    .addComponent(studentIdLbl)
+                    .addComponent(studentTotalCreditLbl))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(courseDepartmentTf)
-                    .addComponent(courseCreditsTf, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(courseTitleTf)
-                    .addComponent(courseIdTf))
+                    .addComponent(studentDepartmentTf)
+                    .addComponent(studentCreditTf, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(studentNameTf)
+                    .addComponent(studentIdTf))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -101,31 +101,31 @@ public class EditCourses extends DefaultFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(courseIdLbl)
-                    .addComponent(courseIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(studentIdLbl)
+                    .addComponent(studentIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(courseTitleLbl)
-                    .addComponent(courseTitleTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(studentNameLbl)
+                    .addComponent(studentNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(courseDepartmentLbl)
-                    .addComponent(courseDepartmentTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(studentDepartmentLbl)
+                    .addComponent(studentDepartmentTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(courseCreditsTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(courseCreditsLbl))
+                    .addComponent(studentCreditTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentTotalCreditLbl))
                 .addGap(20, 20, 20))
         );
 
-        deleteCourseBtn.setText("delete Course");
-        deleteCourseBtn.addActionListener(new java.awt.event.ActionListener() {
+        deleteStudentBtn.setText("delete Student");
+        deleteStudentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteCourseBtnActionPerformed(evt);
+                deleteStudentBtnActionPerformed(evt);
             }
         });
 
-        editNameBtn.setText("Edit Title");
+        editNameBtn.setText("Edit Name");
         editNameBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editNameBtnActionPerformed(evt);
@@ -139,17 +139,17 @@ public class EditCourses extends DefaultFrame {
             }
         });
 
-        editCreditsBtn.setText("Edit Credits");
-        editCreditsBtn.addActionListener(new java.awt.event.ActionListener() {
+        editTotalCreditBtn.setText("Edit Total Credits");
+        editTotalCreditBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editCreditsBtnActionPerformed(evt);
+                editTotalCreditBtnActionPerformed(evt);
             }
         });
 
-        editCourseTakes.setText("Edit course Takes");
-        editCourseTakes.addActionListener(new java.awt.event.ActionListener() {
+        editStudentCoursesBtn.setText("Show Student Courses");
+        editStudentCoursesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editCourseTakesActionPerformed(evt);
+                editStudentCoursesBtnActionPerformed(evt);
             }
         });
 
@@ -161,17 +161,18 @@ public class EditCourses extends DefaultFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(editCreditsBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteCourseBtn))
+                        .addComponent(editTotalCreditBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteStudentBtn)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(editNameBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(editDepartmentBtn)))
                 .addGap(27, 27, 27))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(editCourseTakes)
+                .addGap(57, 57, 57)
+                .addComponent(editStudentCoursesBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -181,12 +182,12 @@ public class EditCourses extends DefaultFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editNameBtn)
                     .addComponent(editDepartmentBtn))
+                .addGap(18, 18, 18)
+                .addComponent(editStudentCoursesBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editCourseTakes)
-                .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteCourseBtn)
-                    .addComponent(editCreditsBtn))
+                    .addComponent(editTotalCreditBtn)
+                    .addComponent(deleteStudentBtn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -220,7 +221,7 @@ public class EditCourses extends DefaultFrame {
         int i = jTable1.getSelectedRow();
         TableModel tableModel = jTable1.getModel();
         try {
-            selectedCourse = new Course((String) tableModel.getValueAt(i, 0));
+            selectedStudent = new Student((String) tableModel.getValueAt(i, 0));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex);
         }
@@ -231,16 +232,16 @@ public class EditCourses extends DefaultFrame {
         if (!validSelection()) {
             return;
         }
-        String newCourseTitle = GUI_Util.promoteString(
+        String newStudentName = GUI_Util.promoteString(
                 rootPane,
-                "New course title:",
-                "Course Title",
-                "Course title can't be empty !");
-        if (newCourseTitle == null) {
+                "New student name:",
+                "Student Name",
+                "Student name can't be empty !");
+        if (newStudentName == null) {
             return;
         }
         try {
-            selectedCourse.setTitle(newCourseTitle);
+            selectedStudent.setName(newStudentName);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex);
         }
@@ -267,7 +268,7 @@ public class EditCourses extends DefaultFrame {
                 new DefaultComboBoxModel(arr),
                 (String choice) -> {
                     try {
-                        selectedCourse.setDepartmentName(choice);
+                        selectedStudent.setDepartmentName(choice);
 
                         JOptionPane.showMessageDialog(rootPane,
                                 "Department Changed Successfully");
@@ -279,102 +280,99 @@ public class EditCourses extends DefaultFrame {
                         return false;
                     }
                 }), editDepartmentBtn);
-
     }//GEN-LAST:event_editDepartmentBtnActionPerformed
 
-    private void deleteCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCourseBtnActionPerformed
+    private void deleteStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentBtnActionPerformed
         if (!validSelection()) {
             return;
         }
         if (GUI_Util.promoteConfirm(rootPane,
-                "Are you sure you want to delete this course ?",
-                "Course Deletion")) {
+                "Are you sure you want to delete this student ?",
+                "Student Deletion")) {
             try {
-                selectedCourse.delete();
+                selectedStudent.delete();
                 updateTable();
-                courseIdTf.setText("");
-                courseTitleTf.setText("");
-                courseDepartmentTf.setText("");
-                courseCreditsTf.setText("");
+                studentIdTf.setText("");
+                studentNameTf.setText("");
+                studentDepartmentTf.setText("");
+                studentCreditTf.setText("");
             } catch (SQLException ex) {
                 JOptionPane.showConfirmDialog(rootPane, ex);
             }
         }
-    }//GEN-LAST:event_deleteCourseBtnActionPerformed
+    }//GEN-LAST:event_deleteStudentBtnActionPerformed
 
-    private void editCreditsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCreditsBtnActionPerformed
+    private void editTotalCreditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTotalCreditBtnActionPerformed
         if (!validSelection()) {
             return;
         }
-        linkFrameToButton(
-                GUI_Util.promoteSpinner("Course Credits", "New course credits :",
-                        "Set Course Credit",
-                        new SpinnerNumberModel(0.0, 0.0, 10_000_000.0, 10.0),
-                        (double newCredits) -> {
-                            try {
-                                selectedCourse.setCredits(newCredits);
-                                updateTable();
-                                editCreditsBtn.setEnabled(true);
-                                return true;
-                            } catch (SQLException ex) {
-                                JOptionPane.showMessageDialog(rootPane, ex);
-                            }
-                            return false;
-                        }),
-                editCreditsBtn);
-    }//GEN-LAST:event_editCreditsBtnActionPerformed
+        linkFrameToButton(GUI_Util.promoteSpinner("Student Total Credit",
+                "New student total credit :",
+                "Set Total Credit",
+                new SpinnerNumberModel(0.0, 0.0, 10_000_000.0, 10.0),
+                (double newTotalCredit) -> {
+                    try {
+                        selectedStudent.setTotalCerdit(newTotalCredit);
+                        updateTable();
+                        editTotalCreditBtn.setEnabled(true);
+                        return true;
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(rootPane, ex);
+                    }
+                    return false;
+                }), editTotalCreditBtn);
+    }//GEN-LAST:event_editTotalCreditBtnActionPerformed
 
-    private void editCourseTakesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCourseTakesActionPerformed
-
+    private void editStudentCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editStudentCoursesBtnActionPerformed
         if (!validSelection()) {
             return;
         }
-        ShowCourseTakes frame = new ShowCourseTakes(selectedCourse);
-        linkFrameToButton(frame, editCourseTakes);
+        ShowStudentCourses frame = new ShowStudentCourses(selectedStudent);
+        linkFrameToButton(frame, editStudentCoursesBtn);
         frame.setVisible(true);
-    }//GEN-LAST:event_editCourseTakesActionPerformed
+    }//GEN-LAST:event_editStudentCoursesBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel courseCreditsLbl;
-    private javax.swing.JTextField courseCreditsTf;
-    private javax.swing.JLabel courseDepartmentLbl;
-    private javax.swing.JTextField courseDepartmentTf;
-    private javax.swing.JLabel courseIdLbl;
-    private javax.swing.JTextField courseIdTf;
-    private javax.swing.JLabel courseTitleLbl;
-    private javax.swing.JTextField courseTitleTf;
-    private javax.swing.JButton deleteCourseBtn;
-    private javax.swing.JButton editCourseTakes;
-    private javax.swing.JButton editCreditsBtn;
+    private javax.swing.JButton deleteStudentBtn;
     private javax.swing.JButton editDepartmentBtn;
     private javax.swing.JButton editNameBtn;
+    private javax.swing.JButton editStudentCoursesBtn;
+    private javax.swing.JButton editTotalCreditBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField studentCreditTf;
+    private javax.swing.JLabel studentDepartmentLbl;
+    private javax.swing.JTextField studentDepartmentTf;
+    private javax.swing.JLabel studentIdLbl;
+    private javax.swing.JTextField studentIdTf;
+    private javax.swing.JLabel studentNameLbl;
+    private javax.swing.JTextField studentNameTf;
+    private javax.swing.JLabel studentTotalCreditLbl;
     // End of variables declaration//GEN-END:variables
 
     private void updateTable() {
         try {
-            jTable1.setModel(buildTableModel(displayCourseInformation()));
+            jTable1.setModel(buildTableModel(getAllStudents()));
         } catch (SQLException ex) {
             JOptionPane.showConfirmDialog(rootPane, ex);
         }
-        if (selectedCourse == null) {
-            courseIdTf.setText("");
-            courseTitleTf.setText("");
-            courseDepartmentTf.setText("");
-            courseCreditsTf.setText("");
+        if (selectedStudent == null) {
+            studentIdTf.setText("");
+            studentNameTf.setText("");
+            studentDepartmentTf.setText("");
+            studentCreditTf.setText("");
         } else {
-            courseIdTf.setText(selectedCourse.getId());
-            courseTitleTf.setText(selectedCourse.getTitle());
-            courseDepartmentTf.setText(selectedCourse.getDepartmentName());
-            courseCreditsTf.setText(String.valueOf(selectedCourse.getCredits()));
+            studentIdTf.setText(selectedStudent.getID());
+            studentNameTf.setText(selectedStudent.getName());
+            studentDepartmentTf.setText(selectedStudent.getDepartmentName());
+            studentCreditTf.setText(String.valueOf(selectedStudent.getTotalCerdit()));
         }
     }
 
     private boolean validSelection() {
-        if (selectedCourse == null) {
+        if (selectedStudent == null) {
             JOptionPane.showMessageDialog(rootPane,
                     "Choose a Student to make this opreation !");
             return false;

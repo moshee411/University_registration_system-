@@ -1,5 +1,5 @@
 
-package gui;
+package main;
 
 import java.io.IOException;
 import java.sql.SQLException;

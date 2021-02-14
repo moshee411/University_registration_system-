@@ -1,5 +1,5 @@
 
-package gui.coursesFrames;
+package main.coursesFrames;
 
 import core.course.CoursesUtil;
 import static core.department.DepartmentsUtil.displayDepartmentNames;

@@ -1,7 +1,7 @@
 
-package gui.sections;
+package main.sections;
 
-import gui.DefaultFrame;
+import main.DefaultFrame;
 import static core.course.CoursesUtil.getAllCoursesStudentsNumber;
 import java.sql.ResultSet;
 import java.sql.SQLException;

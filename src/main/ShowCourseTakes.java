@@ -1,8 +1,8 @@
 
-package gui.coursesFrames;
+package main.coursesFrames;
 
 import core.course.Course;
-import gui.DefaultFrame;
+import main.DefaultFrame;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import static util.gui.GUI_Util.buildTableModel;

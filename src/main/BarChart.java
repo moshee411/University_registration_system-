@@ -1,5 +1,5 @@
 
-package gui.sections;
+package main.sections;
 
 import java.awt.Color;
 import java.awt.Paint;

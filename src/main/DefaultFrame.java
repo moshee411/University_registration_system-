@@ -1,5 +1,5 @@
 
-package gui;
+package main;
 
 import javax.swing.JOptionPane;
 import static util.gui.GUI_Util.exitConfirm;
