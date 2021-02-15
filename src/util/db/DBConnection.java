@@ -18,7 +18,7 @@ public final class DBConnection {
 
     public static Connection establishConnection(String username, String password)
             throws SQLException {
-        String connString = "jdbc:oracle:thin:@localhost:1521:XE";
+         String connString = "jdbc:oracle:thin:@localhost:1521:XE";
         connection = DriverManager.getConnection(connString, username, password);
         isConnected = connection.isValid(0);
         return connection;
