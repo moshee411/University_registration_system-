@@ -4,6 +4,7 @@ package main;
 import com.db.sql.dependencies.Initialize;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import static java.awt.EventQueue.invokeLater;
 
 /**
  *
